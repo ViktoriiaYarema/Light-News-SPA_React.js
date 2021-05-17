@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import './App.scss';
 import Button from './Button/Button';
 import Advertising from './Advertising/Advertising';
@@ -7,107 +7,89 @@ import Politics from './Politics/Politics';
 import Hobby from './Hobby/Hobby';
 import Sport from './Sport/Sport';
 
-class App extends  Component { 
-  state = {
-    component : {
-        block : <Advertising/>
-    },
 
+const App = () =>  { 
+ const obj = {
     component1 : {
         id : 0,
         block : <Advertising/>,
-        title : "Advertising",
-        showBlock : function () {
-            return this.block
-        }
+        title : "Advertising"
     },
 
     component2 : {
         id : 1,
         block :  <Sport/>,
-        title : "Sport",
-        showBlock : function () {
-            return this.block
-        }
+        title : "Sport"
     },
     component3 : {
         id : 2,
         block :  <Games/>,
-        title : "Games",
-        showBlock : function () {
-            return this.block
-        }
+        title : "Games"
     },
     component4 :{
         id : 3,
         block :  <Politics/>,
-        title : "Politics",
-        showBlock : function () {
-            return this.block
-        }
+        title : "Politics"
     },
     component5 :{
         id : 4,
         block :  <Hobby/>,
-        title : "Hobby",
-        showBlock : function () {
-            return this.block
-        }
+        title : "Hobby"
     }      
-}   
+}  
 
-componentHandler = newComponent => {
-    this.setState({
-        component: {
-            block : newComponent
-        }
-    })
+const [state, setState] = useState("Advertising");
+let mainComponent = currentState => {
+    if(currentState === obj.component1.title){
+        return obj.component1.block
+    }  else if (currentState === obj.component2.title) {
+        return obj.component2.block
+    }
+    else if (currentState === obj.component3.title) {
+        return obj.component3.block
+    }
+    else if (currentState === obj.component4.title) {
+        return obj.component4.block
+    }
+    else if (currentState === obj.component5.title) {
+        return obj.component5.block
+    }
+};
+const change = (value) => {    
+    setState(value);
 }
-    render() {
-        return (
-            <div className="app">
-              <div className="container">
-                  <h1>News Portal</h1>
-                  <div className = "btns__wrapper"> 
+    return (
+        <div className="app">
+            <div className="container">
+                <h1>News Portal</h1>
+                <div className = "btns__wrapper"> 
                     <Button 
-                            title = {this.state.component1.title}
-                            show = {() => this.componentHandler(this.state.component1.block)}
-                            id = {this.state.component1.id}
-                            key = {this.state.component1.id}
+                        title = {obj.component1.title}
+                        show = {() => change(obj.component1.title)}                       
                     />
                     <Button 
-                        title = {this.state.component2.title}
-                        show = {() => this.componentHandler(this.state.component2.block)}
-                        id = {this.state.component2.id}
-                        key = {this.state.component2.id}
+                        title = {obj.component2.title}
+                        show = {() => change(obj.component2.title)}
                     />
                     <Button 
-                            title = {this.state.component3.title}
-                            show = {() => this.componentHandler(this.state.component3.block)}
-                            id = {this.state.component3.id}
-                            key = {this.state.component3.id}
+                        title = {obj.component3.title}
+                        show = {() => change(obj.component3.title)}
                     />
                     <Button 
-                            title = {this.state.component4.title}
-                            show = {() => this.componentHandler(this.state.component4.block)}
-                            id = {this.state.component4.id}
-                            key = {this.state.component4.id}
+                        title = {obj.component4.title}
+                        show = {() => change(obj.component4.title)}
                     />
                     <Button 
-                            title = {this.state.component5.title}
-                            show = {() => this.componentHandler(this.state.component5.block)}
-                            id = {this.state.component5.id}
-                            key = {this.state.component5.id}
+                        title = {obj.component5.title}
+                        show = {() => change(obj.component5.title)} 
                     />
-                  </div>                  
-                  <div className="container__news">
-                      {this.state.component.block}
-                  </div>
-        
-              </div>
+                </div>                  
+                <div className="container__news">
+                    {mainComponent(state)}
+                </div>        
             </div>
-          );
-    }  
+        </div>
+    );     
 }
 
 export default App;
