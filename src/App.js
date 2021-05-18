@@ -9,83 +9,54 @@ import Sport from './Sport/Sport';
 
 
 const App = () =>  { 
- const obj = {
-    component1 : {
-        id : 0,
-        block : <Advertising/>,
-        title : "Advertising"
-    },
+    const news = {
+        advertising : "Advertising",
+        sport : "Sport",
+        games : "Games",
+        politics : "Politics",
+        hobby : "Hobby"
+    }  
 
-    component2 : {
-        id : 1,
-        block :  <Sport/>,
-        title : "Sport"
-    },
-    component3 : {
-        id : 2,
-        block :  <Games/>,
-        title : "Games"
-    },
-    component4 :{
-        id : 3,
-        block :  <Politics/>,
-        title : "Politics"
-    },
-    component5 :{
-        id : 4,
-        block :  <Hobby/>,
-        title : "Hobby"
-    }      
-}  
+    const [defaultNews, setNews] = useState(news.advertising);
 
-const [state, setState] = useState("Advertising");
-let mainComponent = currentState => {
-    if(currentState === obj.component1.title){
-        return obj.component1.block
-    }  else if (currentState === obj.component2.title) {
-        return obj.component2.block
+    const changeNews = (value) => {    
+        setNews(value);
     }
-    else if (currentState === obj.component3.title) {
-        return obj.component3.block
-    }
-    else if (currentState === obj.component4.title) {
-        return obj.component4.block
-    }
-    else if (currentState === obj.component5.title) {
-        return obj.component5.block
-    }
-};
-const change = (value) => {    
-    setState(value);
-}
+    
     return (
         <div className="app">
             <div className="container">
                 <h1>News Portal</h1>
                 <div className = "btns__wrapper"> 
                     <Button 
-                        title = {obj.component1.title}
-                        show = {() => change(obj.component1.title)}                       
+                        title = {news.advertising}
+                        getNews = {() => changeNews(news.advertising)}                       
                     />
                     <Button 
-                        title = {obj.component2.title}
-                        show = {() => change(obj.component2.title)}
+                        title = {news.sport}
+                        getNews = {() => changeNews(news.sport)}
                     />
                     <Button 
-                        title = {obj.component3.title}
-                        show = {() => change(obj.component3.title)}
+                        title = {news.games}
+                        getNews = {() => changeNews(news.games)}
                     />
                     <Button 
-                        title = {obj.component4.title}
-                        show = {() => change(obj.component4.title)}
+                        title = {news.politics}
+                        getNews = {() => changeNews(news.politics)}
                     />
                     <Button 
-                        title = {obj.component5.title}
-                        show = {() => change(obj.component5.title)} 
+                        title = {news.hobby}
+                        getNews = {() => changeNews(news.hobby)} 
                     />
                 </div>                  
                 <div className="container__news">
-                    {mainComponent(state)}
+                   {    
+                        defaultNews === news.advertising ? <Advertising/> :                                
+                        defaultNews === news.sport ? <Sport/> :
+                        defaultNews === news.games ? <Games/> : 
+                        defaultNews === news.politics ? <Politics/> : <Hobby/>                      
+                    }
+                    
                 </div>        
             </div>
         </div>
